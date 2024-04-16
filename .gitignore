@@ -1,3 +1,6 @@
 go.mod
 go.sum
-.idea/
+.idea/*
+capacitacion-agenda-crud
+*.tmp
+routers/commentsRouter*.go

@@ -3,13 +3,12 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
 	"github.com/udistrital/capacitacion-agenda-crud/models"
 	"github.com/udistrital/utils_oas/time_bogota"
 	"strconv"
 	"strings"
-
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/logs"
 )
 
 // ContactoController operations for Contacto
@@ -18,40 +17,40 @@ type ContactoController struct {
 }
 
 // URLMapping ...
-func (c *ContactoController) URLMapping() {
-	c.Mapping("Post", c.Post)
-	c.Mapping("GetOne", c.GetOne)
-	c.Mapping("GetAll", c.GetAll)
-	c.Mapping("Put", c.Put)
-	c.Mapping("Delete", c.Delete)
+func (controller *ContactoController) URLMapping() {
+	controller.Mapping("Post", controller.Post)
+	controller.Mapping("GetOne", controller.GetOne)
+	controller.Mapping("GetAll", controller.GetAll)
+	controller.Mapping("Put", controller.Put)
+	controller.Mapping("Delete", controller.Delete)
 }
 
 // Post ...
 // @Title Post
-// @Description create Contacto
-// @Param	body		body 	models.Contacto	true		"body for Contacto content"
+// @Description Crear Contacto
+// @Param	body		body 	models.Contacto	true		"Estructura del modelo Contacto"
 // @Success 201 {int} models.Contacto
-// @Failure 403 body is empty
+// @Failure 400 Parámetros Inválidos
 // @router / [post]
-func (c *ContactoController) Post() {
-	var v models.Contacto
-	v.FechaCreacion = time_bogota.TiempoBogotaFormato()
-	v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddContacto(&v); err == nil {
-			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = map[string]interface{}{"Success": true, "Status": "201", "Message": "Registration successful", "Data": v}
+func (controller *ContactoController) Post() {
+	var contacto models.Contacto
+	contacto.FechaCreacion = time_bogota.TiempoBogotaFormato()
+	contacto.FechaModificacion = time_bogota.TiempoBogotaFormato()
+	if err := json.Unmarshal(controller.Ctx.Input.RequestBody, &contacto); err == nil {
+		if _, err := models.AddContacto(&contacto); err == nil {
+			controller.Ctx.Output.SetStatus(201)
+			controller.Data["json"] = map[string]interface{}{"Success": true, "Status": "201", "Message": "Registro Exitoso", "Data": contacto}
 		} else {
 			logs.Error(err)
-			c.Data["message"] = "Error service POST: The request contains an incorrect data type or an invalid parameter"
-			c.Abort("400")
+			controller.Data["message"] = "Error POST: La solicitud no pudo completarse correctamente."
+			controller.Abort("400")
 		}
 	} else {
 		logs.Error(err)
-		c.Data["message"] = "Error service POST: The request contains an incorrect data type or an invalid parameter"
-		c.Abort("400")
+		controller.Data["message"] = "Error POST: La solicitud contiene datos incorrectos o parámetros inválidos."
+		controller.Abort("400")
 	}
-	c.ServeJSON()
+	controller.ServeJSON()
 }
 
 // GetOne ...

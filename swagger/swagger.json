@@ -1,17 +1,10 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "beego Test API",
-        "description": "beego has a very cool tools to autogenerate documents for your API",
+        "title": "Agenda Test API",
+        "description": "API prueba para agenda.",
         "version": "1.0.0",
-        "termsOfService": "http://beego.me/",
-        "contact": {
-            "email": "astaxie@gmail.com"
-        },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-        }
+        "contact": {}
     },
     "basePath": "/v1",
     "paths": {
@@ -76,13 +69,13 @@
                 "tags": [
                     "contacto"
                 ],
-                "description": "create Contacto",
+                "description": "Crear Contacto",
                 "operationId": "ContactoController.Post",
                 "parameters": [
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "body for Contacto content",
+                        "description": "Estructura del modelo Contacto",
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/models.Contacto"
@@ -93,8 +86,8 @@
                     "201": {
                         "description": "{int} models.Contacto"
                     },
-                    "403": {
-                        "description": "body is empty"
+                    "400": {
+                        "description": "Parámetros Inválidos"
                     }
                 }
             }

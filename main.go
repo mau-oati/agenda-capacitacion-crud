@@ -1,12 +1,11 @@
 package main
 
 import (
-	_ "github.com/udistrital/capacitacion-agenda-crud/routers"
-
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/plugins/cors"
 	_ "github.com/lib/pq"
+	_ "github.com/udistrital/capacitacion-agenda-crud/routers"
 )
 
 func main() {

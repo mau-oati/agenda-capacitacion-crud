@@ -71,6 +71,12 @@
                 ],
                 "description": "Crear Contacto",
                 "operationId": "ContactoController.Post",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "parameters": [
                     {
                         "in": "body",
@@ -84,10 +90,13 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "{int} models.Contacto"
+                        "description": "\"Status\": \"201\", \"Message\": \"Registro Exitoso\", \"Data\": contacto}",
+                        "schema": {
+                            "$ref": "#/definitions/map[string]interface{}{\"Success\":true,"
+                        }
                     },
                     "400": {
-                        "description": "Parámetros Inválidos"
+                        "description": "{string} string \"Error POST: La solicitud no pudo completarse correctamente\""
                     }
                 }
             }
@@ -529,6 +538,10 @@
         }
     },
     "definitions": {
+        "map[string]interface{}{\"Success\":true,": {
+            "title": "map[string]interface{}{\"Success\":true,",
+            "type": "object"
+        },
         "models.Contacto": {
             "title": "Contacto",
             "type": "object",

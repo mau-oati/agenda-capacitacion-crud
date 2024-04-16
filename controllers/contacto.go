@@ -28,9 +28,11 @@ func (controller *ContactoController) URLMapping() {
 // Post ...
 // @Title Post
 // @Description Crear Contacto
+// @Accept json
+// @Produce json
 // @Param	body		body 	models.Contacto	true		"Estructura del modelo Contacto"
-// @Success 201 {int} models.Contacto
-// @Failure 400 Parámetros Inválidos
+// @Success 201 {object} map[string]interface{}{"Success":true, "Status": "201", "Message": "Registro Exitoso", "Data": contacto}
+// @Failure 400 {string} string "Error POST: La solicitud no pudo completarse correctamente"
 // @router / [post]
 func (controller *ContactoController) Post() {
 	var contacto models.Contacto

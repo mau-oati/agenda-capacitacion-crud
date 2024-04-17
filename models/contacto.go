@@ -3,12 +3,11 @@ package models
 import (
 	"errors"
 	"fmt"
+	"github.com/astaxie/beego/logs"
+	"github.com/astaxie/beego/orm"
+	"github.com/udistrital/utils_oas/time_bogota"
 	"reflect"
 	"strings"
-
-	"github.com/udistrital/utils_oas/time_bogota"
-
-	"github.com/astaxie/beego/orm"
 )
 
 type Contacto struct {
@@ -34,6 +33,9 @@ func init() {
 func AddContacto(m *Contacto) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
+	if err != nil {
+		logs.Error(err)
+	}
 	return
 }
 
